@@ -16,5 +16,5 @@ Python 2.7.\*
 
 My dream is to build robots. I have a few projects devices to do, but I have limited founds.
 If you appreciate my work you can support my projects through dotations:
-[Donate here](https://www.cieniu.pl/donation "Cieniu projects donation")
+[Donate here](http://www.cieniu.pl/donation "Cieniu projects donation")
 
