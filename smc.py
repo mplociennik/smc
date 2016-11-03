@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
 from urlparse import urlparse, parse_qs
-
+import os
 
 class smcHandler(BaseHTTPRequestHandler):
     
@@ -29,13 +29,34 @@ class smcHandler(BaseHTTPRequestHandler):
         request = self.parse_url(self.path)
         if 'video' in request:
             viewTemplate = self.get_template('video', request)
+            self.send_response(200)
+            self.send_header('Content-type','text/html')
+            self.end_headers()
+            self.wfile.write(viewTemplate)
+            return
+        elif self.path.endswith(".jpg"):
+            f = open(os.getcwd() + '/' + self.path, 'rb')
+            self.send_response(200)
+            self.send_header('Content-type', 'image/png')
+            self.end_headers()
+            self.wfile.write(f.read())
+            f.close()
+            return 
+        elif self.path.endswith(".mp4"):
+            f = open(os.getcwd() + '/' + self.path, 'rb')
+            self.send_response(200)
+            self.send_header('Content-type', 'video/mp4')
+            self.end_headers()
+            self.wfile.write(f.read())
+            f.close()
+            return 
         else:
             viewTemplate = self.get_template('index', request)
-        self.send_response(200)
-        self.send_header('Content-type','text/html')
-        self.end_headers()
-        self.wfile.write(viewTemplate)
-        return
+            self.send_response(200)
+            self.send_header('Content-type','text/html')
+            self.end_headers()
+            self.wfile.write(viewTemplate)
+            return
 
 
 class SMC:
